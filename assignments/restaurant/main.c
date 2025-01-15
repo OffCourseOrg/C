@@ -11,105 +11,105 @@ struct Booking_t {
   int people;
 };
 
-int free_seats_available(struct Booking_t *restaurant[], int hour) {
+int free_seats_available(struct Booking_t *bookings[], int hour) {
   int free_seats = MAX_SEATS;
   for (size_t i = 0; i < MAX_BOOKINGS; ++i) {
-    if (restaurant[i] != NULL && restaurant[i]->hour == hour) {
-      free_seats -= restaurant[i]->people;
+    if (bookings[i] != NULL && bookings[i]->hour == hour) {
+      free_seats -= bookings[i]->people;
     }
   }
   return free_seats;
 }
 
-void add_booking(struct Booking_t *restaurant[], int hour, char *name, int people) {
+void add_booking(struct Booking_t *bookings[], int hour, char *name, int people) {
   int free_index = -1;
 
   for (size_t i = 0; i < MAX_BOOKINGS; ++i) {
-    if (restaurant[i] == NULL) {
+    if (bookings[i] == NULL) {
       free_index = i;
       break;
     }
   }
 
-  if (free_seats_available(restaurant, hour) >= people && free_index > -1) {
-    restaurant[free_index] = malloc(sizeof(*restaurant[free_index]));
-    if (restaurant[free_index] == NULL) {
+  if (free_seats_available(bookings, hour) >= people && free_index > -1) {
+    bookings[free_index] = malloc(sizeof(*bookings[free_index]));
+    if (bookings[free_index] == NULL) {
       fprintf(stderr, "Buy more RAM\n");
       return;
     }
-    restaurant[free_index]->name = malloc((strlen(name) + 1) * sizeof(*restaurant[free_index]->name));
-    if (restaurant[free_index]->name == NULL) {
+    bookings[free_index]->name = malloc((strlen(name) + 1) * sizeof(*bookings[free_index]->name));
+    if (bookings[free_index]->name == NULL) {
       fprintf(stderr, "Buy more RAM\n");
       return;
     }
 
-    restaurant[free_index]->hour = hour;
-    strcpy(restaurant[free_index]->name, name);
-    restaurant[free_index]->people = people;
+    bookings[free_index]->hour = hour;
+    strcpy(bookings[free_index]->name, name);
+    bookings[free_index]->people = people;
     return;
   }
 
   printf("Could not add reservation\n");
 }
 
-void print_restaurant(struct Booking_t *restaurant[]) {
+void print_bookings(struct Booking_t *bookings[]) {
   for (size_t i = 0; i < MAX_BOOKINGS; ++i) {
-    if (restaurant[i] != NULL) {
-      printf("Name: %s\n", restaurant[i]->name);
-      printf(" Hour: %d\n", restaurant[i]->hour);
-      printf(" Number of people: %d\n", restaurant[i]->people);
+    if (bookings[i] != NULL) {
+      printf("Name: %s\n", bookings[i]->name);
+      printf(" Hour: %d\n", bookings[i]->hour);
+      printf(" Number of people: %d\n", bookings[i]->people);
     }
   }
 }
 
-int find_booking(struct Booking_t *restaurant[], char *name) {
+int find_booking(struct Booking_t *bookings[], char *name) {
   for (size_t i = 0; i < MAX_BOOKINGS; ++i) {
-    if (restaurant[i] != NULL && strcmp(name, restaurant[i]->name) == 0) {
+    if (bookings[i] != NULL && strcmp(name, bookings[i]->name) == 0) {
       return i;
     }
   }
   return -1;
 }
 
-void change_booking_hour(struct Booking_t *restaurant[], char *name, int new_hour) {
-  int index = find_booking(restaurant, name);
-  if (index < 0 || new_hour == restaurant[index]->hour) {
+void change_booking_hour(struct Booking_t *bookings[], char *name, int new_hour) {
+  int index = find_booking(bookings, name);
+  if (index < 0 || new_hour == bookings[index]->hour) {
     return;
   }
-  if (free_seats_available(restaurant, new_hour) >= restaurant[index]->people) {
-    printf("Reseated %s from %d to %d\n", restaurant[index]->name, restaurant[index]->hour, new_hour);
-    restaurant[index]->hour = new_hour;
+  if (free_seats_available(bookings, new_hour) >= bookings[index]->people) {
+    printf("Reseated %s from %d to %d\n", bookings[index]->name, bookings[index]->hour, new_hour);
+    bookings[index]->hour = new_hour;
     return;
   }
-  printf("Could not resit %s, because at %d there are not enough seats\n", restaurant[index]->name, new_hour);
+  printf("Could not resit %s, because at %d there are not enough seats\n", bookings[index]->name, new_hour);
 }
 
 // remove_booking
-void remove_booking(struct Booking_t *restaurant[], char *name) {
-  int index = find_booking(restaurant, name);
+void remove_booking(struct Booking_t *bookings[], char *name) {
+  int index = find_booking(bookings, name);
   if (index < 0) {
     return;
   }
-  free(restaurant[index]->name);
-  restaurant[index]->name = NULL;
+  free(bookings[index]->name);
+  bookings[index]->name = NULL;
 
-  free(restaurant[index]);
-  restaurant[index] = NULL;
+  free(bookings[index]);
+  bookings[index] = NULL;
 }
 // sort_bookings
 
-void sort_bookings(struct Booking_t *restaurant[]) {
+void sort_bookings(struct Booking_t *bookings[]) {
   struct Booking_t *temp;
   for (size_t i = 0; i < MAX_BOOKINGS; ++i) {
     for (size_t j = i; j < MAX_BOOKINGS; ++j) {
       //swap if left one is lower on time or is not NULL
-      if (restaurant[j] == NULL) {
+      if (bookings[j] == NULL) {
         continue;
       }
-      if (restaurant[i] == NULL || restaurant[i]->hour > restaurant[j]->hour) {
-        temp = restaurant[i];
-        restaurant[i] = restaurant[j];
-        restaurant[j] = temp;
+      if (bookings[i] == NULL || bookings[i]->hour > bookings[j]->hour) {
+        temp = bookings[i];
+        bookings[i] = bookings[j];
+        bookings[j] = temp;
       }
     }
   }
@@ -120,7 +120,7 @@ int main(void) {
   int quit, hour, people;
   char name[1024];
 
-  struct Booking_t *restaurant[MAX_BOOKINGS] = {NULL};
+  struct Booking_t *bookings[MAX_BOOKINGS] = {NULL};
 
   printf("Welcome to restaurants booking system\n");
 
@@ -141,11 +141,11 @@ int main(void) {
         scanf(" %[^\n]", name);
         printf("Number of people? ");
         scanf(" %d", &people);
-        add_booking(restaurant, hour, name, people);
+        add_booking(bookings, hour, name, people);
         break;
 
       case 'p':
-        print_restaurant(restaurant);
+        print_bookings(bookings);
         break;
 
       case 's':
@@ -153,17 +153,17 @@ int main(void) {
         scanf(" %[^\n]", name);
         printf("New hour? ");
         scanf(" %d", &hour);
-        change_booking_hour(restaurant, name, hour);
+        change_booking_hour(bookings, name, hour);
         break;
 
       case 'r':
         printf("Name? ");
         scanf(" %[^\n]", name);
-        remove_booking(restaurant, name);
+        remove_booking(bookings, name);
         break;
 
       case 'o':
-        sort_bookings(restaurant);
+        sort_bookings(bookings);
         break;
 
       default:
@@ -171,6 +171,12 @@ int main(void) {
     }
 
   } while (!quit);
+
+  for (size_t i = 0; i < MAX_BOOKINGS; ++i) {
+    if (bookings[i] != NULL) {
+      remove_booking(bookings, bookings[i]->name);
+    }
+  }
 
   return 0;
 }
