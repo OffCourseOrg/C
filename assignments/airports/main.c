@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <float.h>
 
-#define MAX_DESTINATIONS 3
+#define MAX_DESTINATIONS 5
 
 struct Airport_t {
   char *name;
@@ -66,8 +67,8 @@ void add_destination(struct Airport_t *airports[], char* destination1, char* des
   int index1 = find_airport(airports, destination1);
   int index2 = find_airport(airports, destination2);
 
-  if (index1 < 0|| index2 < 0) {
-    printf("One of destionations does not exist\n");
+  if (index1 < 0 || index2 < 0) {
+    printf("One of destinations does not exist\n");
     return;
   }
   for (size_t i = 0; i < MAX_DESTINATIONS; ++i) {
@@ -123,6 +124,8 @@ float is_connected(struct Airport_t *airports[], char *name1, char *name2, int h
   int index1 = find_airport(airports, name1);
   int index2 = find_airport(airports, name2);
   float time = 0;
+  float smallest_time = FLT_MAX;
+  size_t index = 0;
   if (index1 < 0 || index2 < 0 || hops < 0) {
     return -1;
   }
@@ -137,10 +140,16 @@ float is_connected(struct Airport_t *airports[], char *name1, char *name2, int h
     }
     time = is_connected(airports, airports[index1]->destonations[i], name2, hops - 1);
     if (time >= 0) {
-      return time + airports[index1]->flight_time[i];
+      if (time < smallest_time) {
+        smallest_time = time;
+        index = i;
+      }
     }
   }
-  return -1;
+  if (smallest_time == FLT_MAX) {
+    return -1;
+  }
+  return smallest_time + airports[index1]->flight_time[index];
 }
 
 
@@ -197,15 +206,15 @@ int main(void) {
       scanf(" %[^\n]", dest1);
       printf("Destination2? ");
       scanf(" %[^\n]", dest2);
-      if (strcmp(dest1, dest2) == 0)  {
-        printf("Flight time is %2f\n", 0.0f);
-        break;
-      }
+      // if (strcmp(dest1, dest2) == 0)  {
+      //   printf("Flight time is %2f\n", 0.0f);
+      //   break;
+      // }
       time = is_connected(airports, dest1, dest2, MAX_DESTINATIONS);
       if (time < 0) {
         printf("Not connected\n");
       } else {
-        printf("Flight time is %2f\n", time);
+        printf("Flight time is %.2f\n", time);
       }
       break;
     default:
