@@ -18,14 +18,14 @@ Create structure `struct Booking_t` that contains:
 - `char *name` which stores name of the person who booked the table
 - `int people` which stores number of people joining in this booking
 
-Declare array called `restaurant` in `main` function that has size of `MAX_BOOKINGS` contains pointers to `struct Booking_t`
+Declare array called `bookings` in `main` function that has size of `MAX_BOOKINGS` contains pointers to `struct Booking_t`
 
 Also create two defines:
 ```
 #define MAX_SEATS 16
 #define MAX_BOOKINGS 10
 ```
-that show maximum available seats in the restaurant and maximum bookings that `restaurant` array can hold
+that show maximum available seats in the restaurant and maximum bookings that `bookings` array can hold
 
 Create function `void print_bookings(struct Booking_t *bookings[])` that prints all non-NULL entrances in bookings.
 
