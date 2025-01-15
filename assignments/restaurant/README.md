@@ -101,7 +101,7 @@ Command? q
 
 You should pass all previous tests and tests *case 5* and *case 6*
 
-## Task 5
+### Task 5
 Write function `void remove_booking(struct Booking_t *bookings[], char *name)` that removes booking from a list based on the persons who booked name.
 
 Add command `r` that calls `remove_booking`
@@ -135,7 +135,7 @@ Command? q
 
 You should pass all previous tests and test *case 7*
 
-## Task 6
+### Task 6
 Wire function `void sort_bookings(struct Booking_t *bookings[])` that sorts all bookings in the array based on the time (the earliest ones come first). The empty slots of the array should be at the back.
 
 Add command `o` that calls `sort_bookings`
