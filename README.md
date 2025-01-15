@@ -1,5 +1,5 @@
 # About this repository
-In this repository are available file that are used on [offcourse.uk](offcourse) website as C exercises.
+In this repository are available file that are used on [offcourse](offcourse.uk) website as C exercises.
 
 ## Running them locally
 Dependencies:
