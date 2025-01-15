@@ -25,7 +25,7 @@ Also create two defines:
 #define MAX_SEATS 16
 #define MAX_BOOKINGS 10
 ```
-that show maximum available seats in the restaurant and maximum bookings that `bookings` array can hold
+that show maximum available seats in the restaurant and maximum bookings that `bookings` array can store
 
 Create function `void print_bookings(struct Booking_t *bookings[])` that prints all non-NULL entrances in bookings.
 
