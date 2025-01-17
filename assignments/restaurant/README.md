@@ -145,7 +145,7 @@ Example:
 Welcome to restaurants booking system
 Command? a
 Hour? 14
-Name? Gendalf
+Name? Gandalf
 Number of people? 1
 Command? a
 Hour? 7
@@ -160,7 +160,7 @@ Hour? 11
 Name? Alatar and Pallando
 Number of people? 2
 Command? p
-Name: Gendalf
+Name: Gandalf
  Hour: 14
  Number of people: 1
 Name: Radagast
@@ -183,7 +183,7 @@ Name: Alatar and Pallando
 Name: Saruman
  Hour: 12
  Number of people: 1
-Name: Gendalf
+Name: Gandalf
  Hour: 14
  Number of people: 1
 Command? q
