@@ -5,6 +5,7 @@ In this repository are available file that are used on [offcourse](https://offco
 Dependencies:
 - gcc 
 - make
+
 Navigate to dedicated assignment
 ```sh
 make run
