@@ -130,7 +130,7 @@ float is_connected(struct Airport_t *airports[], char *name1, char *name2, int h
     return -1;
   }
   // Both names are the same
-  if (strcmp(airports[index1]->name, airports[index2]->name) == 0) {
+  if (strcmp(name1, name2) == 0) {
     return 0;
   }
   // Both names are not the same
