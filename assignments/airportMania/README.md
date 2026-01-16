@@ -227,6 +227,6 @@ Command? q
 
 *You should pass all 19 Test Cases*
 
-That's it, you're now done with the practice exam, hopefully you learned something new along the way, and good luck at your exam tomorrow! A possible solution to the exam can be found in the at: TODO 
+That's it, you're now done with the practice exam, hopefully you learned something new along the way, and good luck at your exam tomorrow! A possible solution to the exam can be found [here](https://github.com/OffCourseOrg/C/blob/master/assignments/airportMania/main.c)
 
 *The copyright for this practice paper belongs to e.t.s.v. Thor and Gijs Jongenelen.*
